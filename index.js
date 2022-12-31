@@ -2,7 +2,7 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 
 // generate HTMl
-const generateHTML = ({ managerName, managerID, managerEmail, managerNumber }) => `<!DOCTYPE html>
+const generateHTML = ({ managerName, managerID, managerEmail, managerNumber, engineerName, engineerID, engineerEmail, engineerUsername, internName, internID, internEmail, internSchool }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -15,6 +15,14 @@ const generateHTML = ({ managerName, managerID, managerEmail, managerNumber }) =
 <div>${managerID}</div>
 <div>${managerEmail}</div>
 <div>${managerNumber}</div>
+<div>${engineerName}</div>
+<div>${engineerID}</div>
+<div>${engineerEmail}</div>
+<div>${engineerUsername}</div>
+<div>${internName}</div>
+<div>${internID}</div>
+<div>${internEmail}</div>
+<div>${internSchool}</div>
 </body>
 </html>`;
 
@@ -46,6 +54,56 @@ inquirer
       message: "Add an engineer or an Intern or Finish",
       name: "mainMenu",
       choices: ["Engineer", "Intern", "Finish"],
+    },
+    // if engineer choosen input engineer’s name, ID, email, and GitHub username
+    {
+      type: "input",
+      message: "What is the engineer's name?",
+      name: "engineerName",
+      when: (answers) => answers.mainMenu === "Engineer",
+    },
+    {
+      type: "input",
+      message: "What is the engineer's ID?",
+      name: "engineerID",
+      when: (answers) => answers.mainMenu === "Engineer",
+    },
+    {
+      type: "input",
+      message: "What is the engineer's email?",
+      name: "engineerEmail",
+      when: (answers) => answers.mainMenu === "Engineer",
+    },
+    {
+      type: "input",
+      message: "What is the engineer's GitHub username?",
+      name: "engineerUsername",
+      when: (answers) => answers.mainMenu === "Engineer",
+    },
+    // if intern is choosen input intern’s name, ID, email, and school
+    {
+      type: "input",
+      message: "What is the intern's name?",
+      name: "internName",
+      when: (answers) => answers.mainMenu === "Intern",
+    },
+    {
+      type: "input",
+      message: "What is the intern's ID?",
+      name: "internID",
+      when: (answers) => answers.mainMenu === "Intern",
+    },
+    {
+      type: "input",
+      message: "What is the intern's email?",
+      name: "internEmail",
+      when: (answers) => answers.mainMenu === "Intern",
+    },
+    {
+      type: "input",
+      message: "What is the intern's school?",
+      name: "internSchool",
+      when: (answers) => answers.mainMenu === "Intern",
     },
   ])
   .then((answers) => {
