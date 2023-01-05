@@ -1,5 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const Manager = require("./lib/Manager");
 const team = [];
 
 // create manager
@@ -53,7 +54,9 @@ function createManager() {
     .then((answers) => {
       console.log(answers);
       // Create a new manager object from the manager class.
+      const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerNumber);
       // push manager onto team array
+      team.push(manager);
       createTeam();
     });
 }
@@ -123,7 +126,7 @@ function createIntern() {
 }
 
 // generate HTMl
-const generateHTML = ({ managerName, managerID, managerEmail, managerNumber }) => `<!DOCTYPE html>
+const generateHTML = (team) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -132,10 +135,10 @@ const generateHTML = ({ managerName, managerID, managerEmail, managerNumber }) =
 <title>Team Profile Generator</title>
 </head>
 <body>
-<div>${managerName}</div>
-<div>${managerID}</div>
-<div>${managerEmail}</div>
-<div>${managerNumber}</div>
+<div>${team[0].getName()}</div>
+<div>${team[0].getId()}</div>
+<div>${team[0].getEmail()}</div>
+<div>${team[0].getOfficeNumber()}</div>
 </body>
 </html>`;
 
