@@ -1,6 +1,8 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 const team = [];
 
 // create manager
@@ -15,7 +17,6 @@ function createTeam() {
       },
     ])
     .then((answers) => {
-      console.log(answers);
       if (answers.mainMenu === "Engineer") {
         createEngineer();
       } else if (answers.mainMenu === "Intern") {
@@ -88,7 +89,9 @@ function createEngineer() {
     .then((answers) => {
       console.log(answers);
       // Create a new manager object from the manager class.
+      const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerUsername);
       // push manager onto team array
+      team.push(engineer);
       createTeam();
     });
 }
@@ -120,13 +123,48 @@ function createIntern() {
     .then((answers) => {
       console.log(answers);
       // Create a new manager object from the manager class.
+      const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internSchool);
       // push manager onto team array
+      team.push(intern);
       createTeam();
     });
 }
 
 // generate HTMl
-const generateHTML = (team) => `<!DOCTYPE html>
+const generateHTML = (team) => {
+  const managerTemplate = `<div class= "manager-card">
+  <div>${team[0].getName()}</div>
+<div>${team[0].getId()}</div>
+<div>${team[0].getEmail()}</div>
+<div>${team[0].getOfficeNumber()}</div> 
+</div>`;
+
+  const engineers = team.filter((employee) => employee.getRole() === "Engineer");
+  console.log(engineers);
+  let engineerTemplate = "";
+
+  engineers.forEach((engineer) => {
+    engineerTemplate += `<div class= "engineer-card"> 
+    <div>${engineer.getName()}</div>
+<div>${engineer.getId()}</div>
+<div>${engineer.getEmail()}</div>
+<div>${engineer.getGithub()}</div> 
+</div>`;
+  });
+
+  const interns = team.filter((employee) => employee.getRole() === "Intern");
+  let internTemplate = "";
+
+  interns.forEach((intern) => {
+    internTemplate += `<div class= "intern-card"> 
+    <div>${intern.getName()}</div>
+<div>${intern.getId()}</div>
+<div>${intern.getEmail()}</div>
+<div>${intern.getSchool()}</div> 
+</div>`;
+  });
+
+  const document = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -135,12 +173,15 @@ const generateHTML = (team) => `<!DOCTYPE html>
 <title>Team Profile Generator</title>
 </head>
 <body>
-<div>${team[0].getName()}</div>
-<div>${team[0].getId()}</div>
-<div>${team[0].getEmail()}</div>
-<div>${team[0].getOfficeNumber()}</div>
+${managerTemplate}
+${engineerTemplate}
+${internTemplate}
+
 </body>
 </html>`;
+
+  return document;
+};
 
 // prompt for manager name, employee id, email address, and office number
 
