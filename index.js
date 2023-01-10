@@ -150,7 +150,7 @@ const generateHTML = (team) => {
   <h4 class="title">Engineer</h4>
 <div>ID: ${engineer.getId()}</div>
 <div>Email: ${engineer.getEmail()}</div>
-<div>Github: ${engineer.getGithub()}</div> 
+<div>Github: <a href="https://github.com/${engineer.getGithub()}" target="_blank"> ${engineer.getGithub()} </a> </div> 
 </div>`;
   });
 
