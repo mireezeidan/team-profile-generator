@@ -133,10 +133,11 @@ function createIntern() {
 // generate HTMl
 const generateHTML = (team) => {
   const managerTemplate = `<div class= "manager-card">
-  <div>${team[0].getName()}</div>
-<div>${team[0].getId()}</div>
-<div>${team[0].getEmail()}</div>
-<div>${team[0].getOfficeNumber()}</div> 
+  <h3 class="employee-name">Name: ${team[0].getName()}</h3>
+  <h4 class="title">Manager</h4>
+<div>ID: ${team[0].getId()}</div>
+<div>Email: ${team[0].getEmail()}</div>
+<div>Office Number: ${team[0].getOfficeNumber()}</div> 
 </div>`;
 
   const engineers = team.filter((employee) => employee.getRole() === "Engineer");
@@ -145,10 +146,11 @@ const generateHTML = (team) => {
 
   engineers.forEach((engineer) => {
     engineerTemplate += `<div class= "engineer-card"> 
-    <div>${engineer.getName()}</div>
-<div>${engineer.getId()}</div>
-<div>${engineer.getEmail()}</div>
-<div>${engineer.getGithub()}</div> 
+    <h3 class="employee-name">Name: ${engineer.getName()}</h3>
+  <h4 class="title">Engineer</h4>
+<div>ID: ${engineer.getId()}</div>
+<div>Email: ${engineer.getEmail()}</div>
+<div>Github: ${engineer.getGithub()}</div> 
 </div>`;
   });
 
@@ -157,10 +159,11 @@ const generateHTML = (team) => {
 
   interns.forEach((intern) => {
     internTemplate += `<div class= "intern-card"> 
-    <div>${intern.getName()}</div>
-<div>${intern.getId()}</div>
-<div>${intern.getEmail()}</div>
-<div>${intern.getSchool()}</div> 
+    <h3 class="employee-name">Name: ${intern.getName()}</h3>
+  <h4 class="title">Intern</h4>
+<div>ID: ${intern.getId()}</div>
+<div>Email: ${intern.getEmail()}</div>
+<div>School: ${intern.getSchool()}</div> 
 </div>`;
   });
 
@@ -170,13 +173,16 @@ const generateHTML = (team) => {
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./src/style.css">
 <title>Team Profile Generator</title>
 </head>
 <body>
+<h1 class="heading">Team Profile</h1>
 ${managerTemplate}
+<div class="employee-wrapper">
 ${engineerTemplate}
 ${internTemplate}
-
+</div>
 </body>
 </html>`;
 
